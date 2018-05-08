@@ -1,23 +1,26 @@
 CC=g++
-PCL=/yanlin/PCL
 
 #eigen
 LIBS += `pkg-config --libs eigen3`
 CPPFLAGS += `pkg-config --cflags eigen3`
 #boost
-LIBS += -lboost_thread
+LIBS += -lboost_thread -lboost_system
 CPPFLAGS += -lboost
 #vtk
-LIBS += -lvtkCommon -lvtksys -lvtkRendering -lvtkFiltering
-CPPFLAGS += -lvtk-5.8 -I/usr/include/vtk-5.8
+LIBS += -lvtkIOCore -lvtkIOExport -lvtkIOExport -lvtkCommonCore
+LIBS += -lvtkCommonSystem -lvtkCommonMath -lvtkCommonMisc -lvtkCommonTransforms
+LIBS += -lvtkCommonExecutionModel -lvtkCommonDataModel -lvtkIOPLY
+LIBS += -lvtkFiltersModeling -lvtkFiltersCore -lvtkRenderingCore -lvtkViewsCore
+LIBS += -lvtkFiltersSources -lvtkRenderingLOD
+CPPFLAGS += -I/usr/include/vtk
 #pcl
-LIBS += -L$(PCL)/lib -lpcl_common -lpcl_io
+LIBS += -lpcl_common -lpcl_io
 LIBS += -lpcl_features -lpcl_keypoints -lpcl_filters
 LIBS += -lpcl_segmentation -lpcl_search -lpcl_sample_consensus
 LIBS += -lpcl_visualization -lpcl_search -lpcl_kdtree -lpcl_octree
-CPPFLAGS += -I$(PCL)/include/pcl-1.5
+CPPFLAGS += -I/usr/include/pcl-1.8
 
-TARGET = 
+TARGET = viewer
 
 all: $(TARGET)
 
@@ -28,4 +31,5 @@ $(TARGET): $(TARGET).o
 
 clean:
 	rm -rf *.o
+
 
